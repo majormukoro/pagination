@@ -4,7 +4,7 @@ Pagination and search
 This is a play ground and for education only
 
 <strong>INSTALLATION</strong> <br>
-Install as your own module add just add <code>'Apps'</code> to your <code>application.config.php</code>
+Install as your own module and add <code>'Apps'</code> to your <code>application.config.php</code>
 
 cd to your module directory
 
@@ -14,4 +14,4 @@ It would install it in your module directory
 
 Finally change the name of the folder from pagination to Apps and access the view file through your browser
 
-<h3>It only a play ground</h3>
+<h3>It is only a play ground</h3>
