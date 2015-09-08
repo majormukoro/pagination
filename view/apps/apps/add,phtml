@@ -1,0 +1,84 @@
+<?php 
+/****************************************************************************************************
+*Aurthor:	Mukoro Godwin
+*Copyright:	Tammgo Consult Limited
+*Description:   View script at ../apps/add.phtml 
+*Website:	http://myhometutor.com.ng
+*Email:		info@myhometutor.com.ng
+*Tel:		+234 806 440 4662
+****************************************************************************************************
+*/
+$title = 'Create a tutor account';
+$this->headTitle($this->title);
+$this->headMeta()->setName('description', 'My Home Tutor Nigeria, is a Nigerian web application that keep a database of '
+        . 'Nigerian teachers who render private home tutor services. It helps parent to search for qualified tutors for their kids');
+?>
+<?php
+$this->headTitle($title);
+?>
+<div id="view_layout">
+        <div id="first_row">
+            <div id="mht_detail_links">
+            <ul>
+                <?php IF(!$this->zfcUserIdentity()): ?>
+                <div id="user_title"><li><a href="#">Welcome Guest</a></li></div>
+                <li>
+                   <!-- If no user is login display -->
+                   <a href="<?php echo $this->url('zfcuser/login') ?>">Login</a>
+                   <a href="<?php echo $this->url('zfcuser/register') ?>">Register a user account</a>
+                                
+                </li>
+                <?php ELSE: ?>
+                <div id="user_title">
+                <li>
+                 <!-- display the 'display name' of the user and logout link -->
+                 <a href="#"><?php echo $this->translate(' Welcome ') ?> <?php echo $this->zfcUserDisplayName() ?></a>
+                </li>
+                </div>
+                <li><a href="<?php echo $this->url('zfcuser/logout') ?>">Logout</a></li>
+                <li><a href="<?php echo $this->url('apps', array('action'=>'add'));?>"><?php echo $this->translate('Create a Tutor Account') ?></a></li>
+                
+                <li><a href="<?php echo $this->url('apps', array('action'=>'addpassport'));?>"><?php echo $this->translate('Add Passport') ?></a></li>
+                            <div id="user_passport"></div>
+                <?php ENDIF ?>
+            </ul>
+             
+       </div>
+            <div id="detail_column">
+                <div class="menu_title"><strong><h1><?php echo $this->translate('Create a tutor account'); ?></h1></strong></div>
+                    
+                    <?php
+        $form  = $this->form;
+        $form->setAttribute('action', $this->url('apps', array('action' => 'add')));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        foreach ($form as $element) :
+            ?>
+            <div class="control-group <?php if ($this->formElementErrors($element)) echo "error" ?>">
+                <label class="control-label"><?php echo $element->getLabel() ?></label>
+                <div class="controls">
+                    <?php
+                    echo $this->formElement($element);
+                    if ($this->formElementErrors($element)):
+                        ?>
+                        <span class="help-inline"><?php echo $this->formElementErrors($element); ?></span>
+                        <?php
+                    endif;
+                    ?>
+                </div>
+            </div>
+            <?php
+                endforeach;
+                echo $this->form()->closeTag();
+            ?> 
+                    <br>
+            </div>
+        </div>
+        <div id="fb-like">
+            <div class="fb-like" data-href="http://myhometutor.com.ng" data-width="100" data-show-faces="true" data-send="true"></div>
+        </div>
+    <div id="listing_row">
+         <img src="/myhometutor/public/img/list_partners.png" />
+    </div>
+</div>
