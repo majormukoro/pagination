@@ -1,0 +1,70 @@
+The complete data base I used in my apps
+
+CREATE TABLE IF NOT EXISTS `apps`.`apps` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(45) NULL,
+  `othername` VARCHAR(45) NULL,
+  `surname` VARCHAR(45) NULL,
+  `sex` VARCHAR(45) NULL,
+  `age` VARCHAR(45) NULL,
+  `mainsubject` VARCHAR(45) NULL,
+  `localgovt` VARCHAR(45) NULL,
+  `stateoforigin` VARCHAR(45) NULL,
+  `nationality` VARCHAR(45) NULL,
+  `religion` VARCHAR(45) NULL,
+  `qualification` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL,
+  `phonenumber` VARCHAR(45) NULL,
+  `passport` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+
+CREATE TABLE IF NOT EXISTS `apps`.`subject` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tid` VARCHAR(45) NULL,
+  `subjectname` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB
+
+CREATE TABLE IF NOT EXISTS `apps`.`user` (
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(255) NULL DEFAULT NULL,
+  `email` VARCHAR(255) NULL DEFAULT NULL,
+  `display_name` VARCHAR(50) NULL DEFAULT NULL,
+  `password` VARCHAR(128) NOT NULL,
+  `state` SMALLINT UNSIGNED NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX (`username` ASC),
+  UNIQUE INDEX (`email` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+
+CREATE TABLE IF NOT EXISTS `apps`.`user_role` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `role_id` VARCHAR(255) NOT NULL,
+  `is_default` TINYINT(1) NOT NULL DEFAULT 0,
+  `parent_id` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `unique_role` (`role_id` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci
+
+CREATE TABLE IF NOT EXISTS `apps`.`user_role_linker` (
+  `user_id` INT UNSIGNED NOT NULL,
+  `role_id` INT(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `role_id`),
+  INDEX `idx_role_id` (`role_id` ASC),
+  INDEX `idx_user_id` (`user_id` ASC),
+  CONSTRAINT `fk_role_id`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `apps`.`user_role` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `fk_user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `apps`.`user` (`user_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci
