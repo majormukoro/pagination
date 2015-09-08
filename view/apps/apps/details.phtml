@@ -1,0 +1,131 @@
+<?php 
+/****************************************************************************************************
+*Aurthor:	Mukoro Godwin
+*Copyright:	Tammgo Consult Limited
+*Description:   View script at ../apps/home.phtml 
+*Website:	http://myhometutor.com.ng
+*Email:		info@myhometutor.com.ng
+*Tel:		+234 806 440 4662
+****************************************************************************************************
+*/
+$title = 'Welcome';
+$this->headTitle($this->title);
+$this->headMeta()->setName('description', 'My Home Tutor Nigeria, is a Nigerian web application that keep a database of '
+        . 'Nigerian teachers who render private home tutor services. It helps parent to search for qualified tutors for their kids');
+$this->headMeta()->setName('keyword', 'home tutors, tutors, nigeria, home teacher, private teachers, mukoro godwin');
+?>
+<div id="view_layout">
+        <div id="first_row">
+        <div id="map_canvas"></div>
+        <div id="mht_links">
+            <ul>
+                <?php IF(!$this->zfcUserIdentity()): ?>
+                <div id="user_title"><li><a href="#">Welcome Guest</a></li></div>
+                <li>
+                   <!-- If no user is login display -->
+                   <a href="<?php echo $this->url('zfcuser/login') ?>">Login</a>
+                   <a href="<?php echo $this->url('zfcuser/register') ?>">Register a user account</a>
+                                
+                </li>
+                <?php ELSE: ?>
+                <div id="user_title">
+                <li>
+                 <!-- display the 'display name' of the user and logout link -->
+                 <a href="#"><?php echo $this->translate(' Welcome ') ?> <?php echo $this->zfcUserDisplayName() ?></a>
+                </li>
+                </div>
+                <li><a href="<?php echo $this->url('zfcuser/logout') ?>">Logout</a></li>
+                <li><a href="<?php echo $this->url('apps', array('action'=>'add'));?>"><?php echo $this->translate('Create a Tutor Account') ?></a></li>
+                
+                <li><a href="<?php echo $this->url('apps', array('action'=>'addpassport'));?>"><?php echo $this->translate('Add Passport') ?></a></li>
+                            <div id="user_passport"></div>
+                <?php ENDIF ?>
+            </ul>
+             
+       </div>
+        <div id="search">
+             <?php
+                $this->headTitle($title);
+                $url_order = 'ASC';
+                if ($order_by == 'localgovt') { $url_order = ($order == 'ASC' )? 'DESC' : 'ASC';}
+                 elseif ($order_by == 'mainsubject') { $url_order = ($order == 'ASC' )? 'DESC' : 'ASC';}
+            ?>
+            <div class="menu_title"><h1><strong><?php echo $this->translate('Search For Tutor'); ?></strong></h1></strong></div>
+            <p>
+            </p>
+            <?php
+                $form  = $this->form;
+                $form->setAttribute('action', $this->url('apps', array('action' => 'search')));
+                $form->prepare();
+
+                echo $this->form()->openTag($form);
+                foreach ($form as $element) :
+            ?>
+            <div class="control-group <?php if ($this->formElementErrors($element)) echo "error" ?>">
+            <label class="control-label"><?php echo $element->getLabel() ?></label>
+                <div class="controls">
+                    <?php
+                    echo $this->formElement($element);
+                    if ($this->formElementErrors($element)):
+                        ?>
+                        <span class="help-inline"><?php echo $this->formElementErrors($element); ?></span>
+                        <?php
+                    endif;
+                    ?>
+                </div>
+            </div>
+            <?php
+                endforeach;
+                echo $this->form()->closeTag();
+                ?>
+        </div>
+        </div>
+        <div id="second_row">
+            <div class="menu_title"><h1><strong><?php echo $this->translate('Avalable Tutor'); ?></strong></h1></strong></div>
+            <div id="search_result">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>First Name <?php if ($order_by == 'firstname'): ?>
+                                <i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a>
+                            </th>
+                            <th>Local Govt. Area <?php if ($order_by == 'localgovt'): ?>
+                                <i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a>
+                            </th>
+                            <th>Subject of Teacher <?php if ($order_by == 'mainsubject'): ?>
+                                    <i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a>
+                            </th>
+                            <th>Sex <?php if ($order_by == 'sex'): ?>
+                                    <i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a>
+                            </th>
+                            <th><!-- Table Header Here --></th>
+                        </tr>
+                    </thead>
+                <tbody>
+                <?php foreach ($paginator as $row) : ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($row->firstname);?></td>
+                    <td><?php echo $this->escapeHtml($row->localgovt);?></td>
+                    <td><?php echo $this->escapeHtml($row->mainsubject);?></td>
+                    <td><?php echo $this->escapeHtml($row->sex);?></td>
+                    <td>
+                        <a  class="btn btn-primary btn-mini edit-row" href="http://localhost/myhometutor/public/tutors/details/<?php echo $this->escapeHtml($row->id);?>">View Details</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php
+                    echo $this->paginationControl(
+                            $paginator, 'Sliding', 'paginator-slide', array('order_by' => $order_by, 'order' => $order, 'search_by' => $search_by, 'pageAction' => $pageAction)
+                    );
+                ?>
+        </div>
+        <div id="fb-like">
+            <div class="fb-like" data-href="http://myhometutor.com.ng" data-width="100" data-show-faces="true" data-send="true"></div>
+        </div>
+        </div>
+    <div id="listing_row">
+         <img src="/myhometutor/public/img/list_partners.png" />
+    </div>
+</div>
