@@ -8,7 +8,7 @@ Install as your own module and add <code>'Apps'</code> to your <code>application
 
 cd to your module directory
 
-Then run <code> git clone https://github.com/majormukoro/pagination </code> from command line
+Then run <code> git clone https://github.com/majormukoro/zf2-pagination </code> from command line
 
 It would install it in your module directory
 
