@@ -1,6 +1,6 @@
 {
   "name": "Zf2-pagination",
   "tagline": "Pagination and search",
-  "body": "This documentation on zf2 pagination is coming soon",
+  "body": "INSTALLATION \r\nInstall as your own module and add 'Apps' to your application.config.php\r\n\r\ncd to your module directory\r\n\r\nThen run  git clone https://github.com/majormukoro/pagination  from command line\r\n\r\nIt would install it in your module directory\r\n\r\nFinally change the name of the folder from pagination to Apps and access the view file through your browser",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
