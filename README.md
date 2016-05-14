@@ -1,8 +1,3 @@
-# ZF2 pagination
-Pagination and search
-
-This is a play ground and for education only
-
 <strong>INSTALLATION</strong> <br>
 Install as your own module and add <code>'Apps'</code> to your <code>application.config.php</code>
 
